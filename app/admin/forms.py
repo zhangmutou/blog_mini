@@ -7,14 +7,14 @@ from ..main.forms import CommentForm
 
 
 class CommonForm(FlaskForm):
-    types = SelectField(u'博文分类', coerce=int, validators=[DataRequired()])
-    source = SelectField(u'博文来源', coerce=int, validators=[DataRequired()])
+    types = SelectField('博文分类', coerce=int, validators=[DataRequired()])
+    source = SelectField('博文来源', coerce=int, validators=[DataRequired()])
 
 
 class SubmitArticlesForm(CommonForm):
-    title = StringField(u'标题', validators=[DataRequired(), Length(1, 64)])
-    content = TextAreaField(u'博文内容', validators=[DataRequired()])
-    summary = TextAreaField(u'博文摘要', validators=[DataRequired()])
+    title = StringField('标题', validators=[DataRequired(), Length(1, 64)])
+    content = TextAreaField('博文内容', validators=[DataRequired()])
+    summary = TextAreaField('博文摘要', validators=[DataRequired()])
 
 
 class ManageArticlesForm(CommonForm):
@@ -38,10 +38,10 @@ class AdminCommentForm(CommentForm):
 
 
 class AddArticleTypeForm(FlaskForm):
-    name = StringField(u'分类名称', validators=[DataRequired(), Length(1, 64)])
-    introduction = TextAreaField(u'分类介绍')
-    setting_hide = SelectField(u'属性', coerce=int, validators=[DataRequired()])
-    menus = SelectField(u'所属导航', coerce=int, validators=[DataRequired()])
+    name = StringField('分类名称', validators=[DataRequired(), Length(1, 64)])
+    introduction = TextAreaField('分类介绍')
+    setting_hide = SelectField('属性', coerce=int, validators=[DataRequired()])
+    menus = SelectField('所属导航', coerce=int, validators=[DataRequired()])
 # You must add coerce=int, or the SelectFile validate function only validate the int data
 
 
@@ -50,7 +50,7 @@ class EditArticleTypeForm(AddArticleTypeForm):
 
 
 class AddArticleTypeNavForm(FlaskForm):
-    name = StringField(u'导航名称', validators=[DataRequired(), Length(1, 64)])
+    name = StringField('导航名称', validators=[DataRequired(), Length(1, 64)])
 
 
 class EditArticleNavTypeForm(AddArticleTypeNavForm):
@@ -58,29 +58,29 @@ class EditArticleNavTypeForm(AddArticleTypeNavForm):
 
 
 class SortArticleNavTypeForm(AddArticleTypeNavForm):
-    order = StringField(u'序号', validators=[DataRequired()])
+    order = StringField('序号', validators=[DataRequired()])
 
 
 class CustomBlogInfoForm(FlaskForm):
-    title = StringField(u'博客标题', validators=[DataRequired()])
-    signature = TextAreaField(u'个性签名', validators=[DataRequired()])
-    navbar = SelectField(u'导航样式', coerce=int, validators=[DataRequired()])
+    title = StringField('博客标题', validators=[DataRequired()])
+    signature = TextAreaField('个性签名', validators=[DataRequired()])
+    navbar = SelectField('导航样式', coerce=int, validators=[DataRequired()])
 
 
 class AddBlogPluginForm(FlaskForm):
-    title = StringField(u'插件名称', validators=[DataRequired()])
-    note = TextAreaField(u'备注')
-    content = TextAreaField(u'内容', validators=[DataRequired()])
+    title = StringField('插件名称', validators=[DataRequired()])
+    note = TextAreaField('备注')
+    content = TextAreaField('内容', validators=[DataRequired()])
 
 
 class ChangePasswordForm(FlaskForm):
-    old_password = PasswordField(u'原来密码', validators=[DataRequired()])
-    password = PasswordField(u'新密码', validators=[
+    old_password = PasswordField('原来密码', validators=[DataRequired()])
+    password = PasswordField('新密码', validators=[
         DataRequired(), EqualTo('password2', message=u'两次输入密码不一致！')])
-    password2 = PasswordField(u'确认新密码', validators=[DataRequired()])
+    password2 = PasswordField('确认新密码', validators=[DataRequired()])
 
 
 class EditUserInfoForm(FlaskForm):
-    username = StringField(u'昵称', validators=[DataRequired()])
-    email = StringField(u'电子邮件', validators=[DataRequired(), Length(1, 64), Email()])
-    password = PasswordField(u'密码确认', validators=[DataRequired()])
+    username = StringField('昵称', validators=[DataRequired()])
+    email = StringField('电子邮件', validators=[DataRequired(), Length(1, 64), Email()])
+    password = PasswordField('密码确认', validators=[DataRequired()])
