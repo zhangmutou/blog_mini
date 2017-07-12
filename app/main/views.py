@@ -70,10 +70,10 @@ def articleDetails(id):
             db.session.add(f)
             db.session.add(comment)
             db.session.commit()
-        flash(u'提交评论成功！', 'success')
+        flash('提交评论成功！', 'success')
         return redirect(url_for('.articleDetails', id=article.id, page=-1))
     if form.errors:
-        flash(u'发表评论失败', 'danger')
+        flash('发表评论失败', 'danger')
 
     page = request.args.get('page', 1, type=int)
     if page == -1:

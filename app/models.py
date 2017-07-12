@@ -5,12 +5,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from . import db, login_manager
 
-article_types = {u'开发语言': ['Python', 'Java', 'JavaScript'],
-                 'Linux': [u'Linux成长之路', u'Linux运维实战', 'CentOS', 'Ubuntu'],
-                 u'网络技术': [u'思科网络技术', u'其它'],
-                 u'数据库': ['MySQL', 'Redis'],
-                 u'爱生活，爱自己': [u'生活那些事', u'学校那些事',u'感情那些事'],
-                 u'Web开发': ['Flask', 'Django'],}
+article_types = {'开发语言': ['Python', 'Java', 'JavaScript'],
+                 'Linux': ['Linux成长之路', 'Linux运维实战', 'CentOS', 'Ubuntu'],
+                 '网络技术': ['思科网络技术', '其它'],
+                 '数据库': ['MySQL', 'Redis'],
+                 '爱生活，爱自己': ['生活那些事', '学校那些事','感情那些事'],
+                 'Web开发': ['Flask', 'Django'],}
 
 
 class User(UserMixin, db.Model):
@@ -75,8 +75,8 @@ class Menu(db.Model):
 
     @staticmethod
     def insert_menus():
-        menus = [u'Web开发', u'数据库', u'网络技术', u'爱生活，爱自己',
-                 u'Linux世界', u'开发语言']
+        menus = ['Web开发', '数据库', '网络技术', '爱生活，爱自己',
+                 'Linux世界', '开发语言']
         for name in menus:
             menu = Menu(name=name)
             db.session.add(menu)
@@ -88,7 +88,7 @@ class Menu(db.Model):
     @staticmethod
     def return_menus():
         menus = [(m.id, m.name) for m in Menu.query.all()]
-        menus.append((-1, u'不选择导航（该分类将单独成一导航）'))
+        menus.append((-1, '不选择导航（该分类将单独成一导航）'))
         return menus
 
     def __repr__(self):
@@ -119,7 +119,7 @@ class ArticleTypeSetting(db.Model):
 
     @staticmethod
     def return_setting_hide():
-        return [(2, u'公开'), (1, u'隐藏')]
+        return [(2, '公开'), (1, '隐藏')]
 
     def __repr__(self):
         return '<ArticleTypeSetting %r>' % self.name
@@ -136,8 +136,8 @@ class ArticleType(db.Model):
 
     @staticmethod
     def insert_system_articleType():
-        articleType = ArticleType(name=u'未分类',
-                                  introduction=u'系统默认分类，不可删除。',
+        articleType = ArticleType(name='未分类',
+                                  introduction='系统默认分类，不可删除。',
                                   setting=ArticleTypeSetting.query.filter_by(protected=True).first()
                                   )
         db.session.add(articleType)
@@ -147,9 +147,9 @@ class ArticleType(db.Model):
     def insert_articleTypes():
         articleTypes = ['Python', 'Java', 'JavaScript', 'Django',
                         'CentOS', 'Ubuntu', 'MySQL', 'Redis',
-                        u'Linux成长之路', u'Linux运维实战', u'其它',
-                        u'思科网络技术', u'生活那些事', u'学校那些事',
-                        u'感情那些事', 'Flask']
+                        'Linux成长之路', 'Linux运维实战', '其它',
+                        '思科网络技术', '生活那些事', '学校那些事',
+                        '感情那些事', 'Flask']
         for name in articleTypes:
             articleType = ArticleType(name=name,
                                       setting=ArticleTypeSetting(name=name))
@@ -184,9 +184,9 @@ class Source(db.Model):
 
     @staticmethod
     def insert_sources():
-        sources = (u'原创',
-                   u'转载',
-                   u'翻译')
+        sources = ('原创',
+                   '转载',
+                   '翻译')
         for s in sources:
             source = Source.query.filter_by(name=s).first()
             if source is None:
@@ -352,8 +352,8 @@ class BlogInfo(db.Model):
 
     @staticmethod
     def insert_blog_info():
-        blog_mini_info = BlogInfo(title=u'开源博客系统Blog_mini',
-                                  signature=u'让每个人都轻松拥有可管理的个人博客！— By xpleaf',
+        blog_mini_info = BlogInfo(title='开源博客系统Blog_mini',
+                                  signature='让每个人都轻松拥有可管理的个人博客！— By xpleaf',
                                   navbar='inverse')
         db.session.add(blog_mini_info)
         db.session.commit()
@@ -370,8 +370,8 @@ class Plugin(db.Model):
 
     @staticmethod
     def insert_system_plugin():
-        plugin = Plugin(title=u'博客统计',
-                        note=u'系统插件',
+        plugin = Plugin(title='博客统计',
+                        note='系统插件',
                         content='system_plugin',
 			order=1)
         db.session.add(plugin)
