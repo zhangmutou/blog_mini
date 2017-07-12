@@ -49,11 +49,11 @@ def submitArticles():
                               source=source, articleType=articleType)
             db.session.add(article)
             db.session.commit()
-            flash(u'发表博文成功！', 'success')
+            flash('发表博文成功！', 'success')
             article_id = Article.query.filter_by(title=title).first().id
             return redirect(url_for('main.articleDetails', id=article_id))
     if form.errors:
-        flash(u'发表博文失败', 'danger')
+        flash('发表博文失败', 'danger')
 
     return render_template('admin/submit_articles.html', form=form)
 
@@ -81,7 +81,7 @@ def editArticles(id):
         article.update_time = datetime.utcnow()
         db.session.add(article)
         db.session.commit()
-        flash(u'博文更新成功！', 'success')
+        flash('博文更新成功！', 'success')
         return redirect(url_for('main.articleDetails', id=article.id))
     form.source.data = article.source_id
     form.title.data = article.title
@@ -101,10 +101,10 @@ def manage_articles():
     from3 = DeleteArticlesForm()  # for delete articles
 
     types = [(t.id, t.name) for t in ArticleType.query.all()]
-    types.append((-1, u'全部分类'))
+    types.append((-1, '全部分类'))
     form.types.choices = types
     sources = [(s.id, s.name) for s in Source.query.all()]
-    sources.append((-1, u'全部来源'))
+    sources.append((-1, '全部来源'))
     form.source.choices = sources
 
     pagination_search = 0
@@ -167,9 +167,9 @@ def delete_article():
             db.session.commit()
         except:
             db.session.rollback()
-            flash(u'删除失败！', 'danger')
+            flash('删除失败！', 'danger')
         else:
-            flash(u'成功删除博文和%s条评论！' % count, 'success')
+            flash('成功删除博文和%s条评论！' % count, 'success')
     if form.errors:
         flash(u'删除失败！', 'danger')
 
@@ -202,11 +202,11 @@ def delete_articles():
             db.session.commit()
         except:
             db.session.rollback()
-            flash(u'删除失败！', 'danger')
+            flash('删除失败！', 'danger')
         else:
-            flash(u'成功删除%s篇博文和%s条评论！' % (len(articleIds), count), 'success')
+            flash('成功删除%s篇博文和%s条评论！' % (len(articleIds), count), 'success')
     if form.errors:
-        flash(u'删除失败！', 'danger')
+        flash('删除失败！', 'danger')
 
     return redirect(url_for('admin.manage_articles', types_id=types_id, source_id=source_id,
                             page=request.args.get('page', 1, type=int)))
@@ -219,7 +219,7 @@ def disable_comment(id):
     comment.disabled = True
     db.session.add(comment)
     db.session.commit()
-    flash(u'屏蔽评论成功！', 'success')
+    flash('屏蔽评论成功！', 'success')
     if request.args.get('disable_type') == 'admin':
         page = request.args.get('page', 1, type=int)
         return redirect(url_for('admin.manage_comments',
@@ -237,7 +237,7 @@ def enable_comment(id):
     comment.disabled = False
     db.session.add(comment)
     db.session.commit()
-    flash(u'恢复显示评论成功！', 'success')
+    flash('恢复显示评论成功！', 'success')
     if request.args.get('enable_type') == 'admin':
         page = request.args.get('page', 1, type=int)
         return redirect(url_for('admin.manage_comments',
@@ -261,9 +261,9 @@ def delete_comment(id):
         db.session.commit()
     except:
         db.session.rollback()
-        flash(u'删除评论失败！', 'danger')
+        flash('删除评论失败！', 'danger')
     else:
-        flash(u'删除评论成功！', 'success')
+        flash('删除评论成功！', 'success')
     if request.args.get('delete_type') == 'admin':
         page = request.args.get('page', 1, type=int)
         return redirect(url_for('admin.manage_comments',
@@ -296,10 +296,10 @@ def manage_comments():
         db.session.add(f)
         db.session.add(comment)
         db.session.commit()
-        flash(u'提交评论成功！', 'success')
+        flash('提交评论成功！', 'success')
         return redirect(url_for('.manage_comments'))
     if form.errors:
-        flash(u'提交评论失败！请查看填写有无错误。', 'danger')
+        flash('提交评论失败！请查看填写有无错误。', 'danger')
         return redirect(url_for('.manage_comments'))
 
     page = request.args.get('page', 1, type=int)
@@ -329,11 +329,11 @@ def delete_comments():
             db.session.commit()
         except:
             db.session.rollback()
-            flash(u'删除失败！', 'danger')
+            flash('删除失败！', 'danger')
         else:
-            flash(u'成功删除%s条评论！' % count , 'success')
+            flash('成功删除%s条评论！' % count , 'success')
     if form2.errors:
-        flash(u'删除失败！', 'danger')
+        flash('删除失败！', 'danger')
 
     page = request.args.get('page', 1, type=int)
     return redirect(url_for('.manage_comments', page=page))
@@ -359,7 +359,7 @@ def manage_articleTypes():
         name = form.name.data
         articleType = ArticleType.query.filter_by(name=name).first()
         if articleType:
-            flash(u'添加分类失败！该分类名称已经存在。', 'danger')
+            flash('添加分类失败！该分类名称已经存在。', 'danger')
         else:
             introduction = form.introduction.data
             setting_hide = form.setting_hide.data
@@ -376,10 +376,10 @@ def manage_articleTypes():
             # just use if `articleType.introduction` or `if articleType.menu`.
             db.session.add(articleType)
             db.session.commit()
-            flash(u'添加分类成功！', 'success')
+            flash('添加分类成功！', 'success')
         return redirect(url_for('.manage_articleTypes'))
     if form.errors:
-        flash(u'添加分类失败！请查看填写有无错误。', 'danger')
+        flash('添加分类失败！请查看填写有无错误。', 'danger')
         return redirect(url_for('.manage_articleTypes'))
 
     pagination = ArticleType.query.order_by(ArticleType.id.desc()).paginate(
@@ -414,7 +414,7 @@ def edit_articleType():
         if articleType.is_protected:
             if form2.name.data != articleType.name or \
                             form2.introduction.data != articleType.introduction:
-                flash(u'您只能修改系统默认分类的属性和所属导航！', 'danger')
+                flash('您只能修改系统默认分类的属性和所属导航！', 'danger')
             else:
                 menu = Menu.query.get(form2.menus.data)
                 if not menu:
@@ -426,10 +426,10 @@ def edit_articleType():
                     articleType.setting.hide = False
                 db.session.add(articleType)
                 db.session.commit()
-                flash(u'修改系统默认分类成功！', 'success')
+                flash('修改系统默认分类成功！', 'success')
         elif ArticleType.query.filter_by(name=form2.name.data).first() \
             and ArticleType.query.filter_by(name=form2.name.data).first().id != articleType_id:
-                flash(u'修改分类失败！该分类名称已经存在。', 'danger')
+                flash('修改分类失败！该分类名称已经存在。', 'danger')
         else:
             introduction = form2.introduction.data
             menu = Menu.query.get(form2.menus.data)
@@ -448,10 +448,10 @@ def edit_articleType():
 
             db.session.add(articleType)
             db.session.commit()
-            flash(u'修改分类成功！', 'success')
+            flash('修改分类成功！', 'success')
         return redirect(url_for('.manage_articleTypes', page=page))
     if form2.errors:
-        flash(u'修改分类失败！请查看填写有无错误。', 'danger')
+        flash('修改分类失败！请查看填写有无错误。', 'danger')
         return redirect(url_for('.manage_articleTypes', page=page))
 
 
@@ -462,7 +462,7 @@ def delete_articleType(id):
 
     articleType = ArticleType.query.get_or_404(id)
     if articleType.is_protected:
-        flash(u'警告：您没有删除系统默认分类的权限！', 'danger')
+        flash('警告：您没有删除系统默认分类的权限！', 'danger')
         return redirect(url_for('admin.manage_articleTypes', page=page))
     count = 0
     systemType = ArticleTypeSetting.query.filter_by(protected=True).first().types.first()
@@ -479,9 +479,9 @@ def delete_articleType(id):
         db.session.commit()
     except:
         db.session.rollback()
-        flash(u'删除分类失败！', 'danger')
+        flash('删除分类失败！', 'danger')
     else:
-        flash(u'删除分类成功！同时将原来该分类的%s篇博文添加到<未分类>。' % count, 'success')
+        flash('删除分类成功！同时将原来该分类的%s篇博文添加到<未分类>。' % count, 'success')
     return redirect(url_for('admin.manage_articleTypes', page=page))
 
 
@@ -515,14 +515,14 @@ def manage_articleTypes_nav():
         menu = Menu.query.filter_by(name=name).first()
         if menu:
             page = page
-            flash(u'添加导航失败！该导航名称已经存在。', 'danger')
+            flash('添加导航失败！该导航名称已经存在。', 'danger')
         else:
             menu_count = Menu.query.count()
             menu = Menu(name=name, order=menu_count+1)
             db.session.add(menu)
             db.session.commit()
             page = -1
-            flash(u'添加导航成功！', 'success')
+            flash('添加导航成功！', 'success')
         return redirect(url_for('admin.manage_articleTypes_nav', page=page))
     if page == -1:
         page = (Menu.query.count() - 1) // \
@@ -548,16 +548,16 @@ def edit_nav():
         nav_id = int(form2.nav_id.data)
         if Menu.query.filter_by(name=name).first() \
             and Menu.query.filter_by(name=name).first().id != nav_id:
-                flash(u'修改导航失败！该导航名称已经存在。', 'danger')
+                flash('修改导航失败！该导航名称已经存在。', 'danger')
         else:
             nav = Menu.query.get_or_404(nav_id)
             nav.name = name
             db.session.add(nav)
             db.session.commit()
-            flash(u'修改导航成功！', 'success')
+            flash('修改导航成功！', 'success')
         return redirect(url_for('admin.manage_articleTypes_nav', page=page))
     if form2.errors:
-        flash(u'修改导航失败！请查看填写有无错误。', 'danger')
+        flash('修改导航失败！请查看填写有无错误。', 'danger')
         return redirect(url_for('admin.manage_articleTypes_nav', page=page))
 
 
@@ -578,9 +578,9 @@ def delete_nav(id):
         db.session.commit()
     except:
         db.session.rollback()
-        flash(u'删除导航失败！', 'danger')
+        flash('删除导航失败！', 'danger')
     else:
-        flash(u'删除导航成功！同时将原来该导航的%s种分类的导航设置为无。' % count, 'success')
+        flash('删除导航成功！同时将原来该导航的%s种分类的导航设置为无。' % count, 'success')
     return redirect(url_for('admin.manage_articleTypes_nav', page=page))
 
 
@@ -596,9 +596,9 @@ def nav_sort_up(id):
         db.session.add(menu)
         db.session.add(pre_menu)
         db.session.commit()
-        flash(u'成功将该导航升序！', 'success')
+        flash('成功将该导航升序！', 'success')
     else:
-        flash(u'该导航已经位于最前面！', 'danger')
+        flash('该导航已经位于最前面！', 'danger')
     return redirect(url_for('admin.manage_articleTypes_nav', page=page))
 
 
@@ -614,9 +614,9 @@ def nav_sort_down(id):
         db.session.add(menu)
         db.session.add(latter_menu)
         db.session.commit()
-        flash(u'成功将该导航降序！', 'success')
+        flash('成功将该导航降序！', 'success')
     else:
-        flash(u'该导航已经位于最后面！', 'danger')
+        flash('该导航已经位于最后面！', 'danger')
     return redirect(url_for('admin.manage_articleTypes_nav', page=page))
 
 
@@ -636,7 +636,7 @@ def get_articleTypeNav_info(id):
 def custom_blog_info():
     form = CustomBlogInfoForm()
 
-    navbars = [(1, u'魅力黑'), (2, u'优雅白')]
+    navbars = [(1, '魅力黑'), (2, '优雅白')]
     form.navbar.choices = navbars
 
     if form.validate_on_submit():
@@ -650,7 +650,7 @@ def custom_blog_info():
         db.session.add(blog)
         db.session.commit()
 
-        flash(u'修改博客基本信息成功！', 'success')
+        flash('修改博客基本信息成功！', 'success')
         return redirect(url_for('admin.custom_blog_info'))
 
     return render_template('admin/custom_blog_info.html', form=form)
@@ -699,9 +699,9 @@ def delete_plugin(id):
         db.session.commit()
     except:
         db.session.rollback()
-        flash(u'删除插件失败！', 'danger')
+        flash('删除插件失败！', 'danger')
     else:
-        flash(u'删除插件成功！' ,'success')
+        flash('删除插件成功！' ,'success')
     return redirect(url_for('admin.custom_blog_plugin', page=page))
 
 
@@ -717,9 +717,9 @@ def plugin_sort_up(id):
         db.session.add(plugin)
         db.session.add(pre_plugin)
         db.session.commit()
-        flash(u'成功将该插件升序！', 'success')
+        flash('成功将该插件升序！', 'success')
     else:
-        flash(u'该插件已经位于最前面！', 'danger')
+        flash('该插件已经位于最前面！', 'danger')
     return redirect(url_for('admin.custom_blog_plugin', page=page))
 
 
@@ -735,9 +735,9 @@ def plugin_sort_down(id):
         db.session.add(plugin)
         db.session.add(latter_plugin)
         db.session.commit()
-        flash(u'成功将该插件降序！', 'success')
+        flash('成功将该插件降序！', 'success')
     else:
-        flash(u'该插件已经位于最后面！', 'danger')
+        flash('该插件已经位于最后面！', 'danger')
     return redirect(url_for('admin.custom_blog_plugin', page=page))
 
 
@@ -750,7 +750,7 @@ def disable_plugin(id):
     plugin.disabled = True
     db.session.add(plugin)
     db.session.commit()
-    flash(u'禁用插件成功！', 'success')
+    flash('禁用插件成功！', 'success')
     return redirect(url_for('admin.custom_blog_plugin', page=page))
 
 
@@ -763,7 +763,7 @@ def enable_plugin(id):
     plugin.disabled = False
     db.session.add(plugin)
     db.session.commit()
-    flash(u'启用插件成功！', 'success')
+    flash('启用插件成功！', 'success')
     return redirect(url_for('admin.custom_blog_plugin', page=page))
 
 
@@ -778,7 +778,7 @@ def add_plugin():
         if plugin:
             form = AddBlogPluginForm(title=title, note=form.note.data,
                                      content=form.content.data)
-            flash(u'添加插件失败！该插件名称已经存在。', 'danger')
+            flash('添加插件失败！该插件名称已经存在。', 'danger')
             return render_template('admin/blog_plugin_add.html', form=form)
         else:
             note = form.note.data
@@ -788,7 +788,7 @@ def add_plugin():
                             content=content, order=plugin_count+1)
             db.session.add(plugin)
             db.session.commit()
-            flash(u'添加插件成功！', 'success')
+            flash('添加插件成功！', 'success')
         return redirect(url_for('admin.custom_blog_plugin'))
 
     return render_template('admin/blog_plugin_add.html', form=form)
@@ -806,7 +806,7 @@ def edit_plugin(id):
         title = form.title.data
         plugin_check = Plugin.query.filter_by(title=title).first()
         if plugin_check and plugin_check.id != id:
-            flash(u'修改插件失败！该插件名称已经存在。', 'danger')
+            flash('修改插件失败！该插件名称已经存在。', 'danger')
             return redirect(url_for('admin.edit_plugin', id=id))
         else:
             plugin.title = title
@@ -814,7 +814,7 @@ def edit_plugin(id):
             plugin.content = form.content.data
             db.session.add(plugin)
             db.session.commit()
-            flash(u'修改插件成功！', 'success')
+            flash('修改插件成功！', 'success')
         return redirect(url_for('admin.custom_blog_plugin', page=page))
 
     return render_template('admin/blog_plugin_add.html', form=form, page=page)
@@ -840,10 +840,10 @@ def change_password():
             current_user.password = form.password.data
             db.session.add(current_user)
             db.session.commit()
-            flash(u'修改密码成功！', 'success')
+            flash('修改密码成功！', 'success')
             return redirect(url_for('admin.account'))
         else:
-            flash(u'修改密码失败！密码不正确！', 'danger')
+            flash('修改密码失败！密码不正确！', 'danger')
             return redirect(url_for('admin.account'))
 
 
@@ -858,10 +858,10 @@ def edit_user_info():
             current_user.email = form2.email.data
             db.session.add(current_user)
             db.session.commit()
-            flash(u'修改用户信息成功！', 'success')
+            flash('修改用户信息成功！', 'success')
             return redirect(url_for('admin.account'))
         else:
-            flash(u'修改用户信息失败！密码不正确！', 'danger')
+            flash('修改用户信息失败！密码不正确！', 'danger')
             return redirect(url_for('admin.account'))
 
 
